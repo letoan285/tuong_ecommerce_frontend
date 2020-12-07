@@ -4,6 +4,9 @@ import Footer from './presentation/components/footer';
 import Header from './presentation/components/header';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Routes from './presentation/routes';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
