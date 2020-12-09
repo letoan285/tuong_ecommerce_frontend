@@ -1,9 +1,10 @@
 import React from 'react';
+import ReviewCart from '../../modules/CartContext/ReviewCart';
 
 const CartPage = () => {
     return (
         <>
-            <h2>CartPage</h2>
+           <ReviewCart />
         </>
     );
 }

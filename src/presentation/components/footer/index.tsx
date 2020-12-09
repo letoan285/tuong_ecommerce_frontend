@@ -92,7 +92,7 @@ const Footer = () => {
                                     <div className="item-content">
                                         <div className="wrap-newletter-footer">
                                             <form action="#" className="frm-newletter" id="frm-newletter">
-                                                <input type="email" className="input-email" name="email" value="" placeholder="Enter your email address" />
+                                                <input type="email" className="input-email" name="email" placeholder="Enter your email address" />
                                                     <button className="btn-submit">Subscribe</button>
 										</form>
 									</div>

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import './style.scss';
 import { mockData,IMockData   } from '../../../data/mock-data';
+import CountDown from "./countdown";
+import '../style.scss';
 
 interface Props { }
 interface State {
@@ -51,8 +53,9 @@ export default class OnSales extends Component<Props, State> {
 
                     <h5> On Sale </h5>
                 </div>
-                <div className="count_down">
-                    <p>{Math.round(this.state.time / (60 * 60))} h : {Math.round(this.state.time / (60))} p:  {this.state.time} s</p>
+                <div className="count_downs">
+                    <CountDown />
+                    {/* <p>{Math.round(this.state.time / (60 * 60))} h : {Math.round(this.state.time / (60))} p:  {this.state.time} s</p> */}
                 </div>
                 <Slider {...settings}>
 

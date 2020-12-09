@@ -24,3 +24,12 @@ export const mockData: IMockData[] = [
     {id: 13, name: 'Men were', category_id: 2, isNew: false, isSale: true, sale: 0.2, price: 120, src: 'assets/images/products/tools_equipment_1.jpg'},
     {id: 14, name: 'Men were', category_id: 1, isNew: true, isSale: true, sale: 0.2, price: 120, src: 'assets/images/products/tools_equipment_1.jpg'}
 ];
+
+export const categories = [
+    {id: 1, name: 'Electronics', link: '/', children: [{id: 1, name: 'Batteries & Chargens', link: '/'}, {id: 2, name: 'Batteries & Other', link: '/'}]},
+    {id: 2, name: 'Smartphone & Table', link: '/', children: [
+            {id: 1, name: 'Mp3 Player & Acessories', link: '/'},
+            {id: 2, name: 'Mobile and Accessories', link: '/'}
+        ]
+    }
+];

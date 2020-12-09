@@ -56,7 +56,7 @@ export default class LatestProducts extends Component<Props, State> {
                     {
                         this.state.latestProducts.map((item: IMockData) => {
                             return (
-                                <div className="product_container">
+                                <div className="product_container" key={item.id}>
                                     <div className="sale">
 
                                         <span className="product-trend-label">Sale</span>

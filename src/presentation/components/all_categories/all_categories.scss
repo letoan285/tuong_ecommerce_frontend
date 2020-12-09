@@ -1,0 +1,14 @@
+.category {
+    .category-title {
+        &__text {
+            font-weight: bold;
+            padding: 8px 0;
+        }
+    }
+    .category-body {
+        padding: 8px 0;
+        &__title {
+            padding: 8px 0;
+        }
+    }
+}

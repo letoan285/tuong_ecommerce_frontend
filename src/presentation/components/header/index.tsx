@@ -1,6 +1,8 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { navRoutes as routes } from '../../routes/navbar';
+import './header.scss';
+import { categories } from '../../../data/mock-data';
 const Header = () => {
     return (
         <header id="header" className="header header-style-1">
@@ -57,29 +59,40 @@ const Header = () => {
                             <div className="wrap-search center-section">
                                 <div className="wrap-search-form">
                                     <form action="#" id="form-search-top" name="form-search-top">
-                                        <input type="text" name="search" value="" placeholder="Search here..." />
+                                        <input type="text" name="search" placeholder="Search here..." />
                                         <button form="form-search-top" type="button"><i className="fa fa-search" aria-hidden="true"></i></button>
                                         <div className="wrap-list-cate">
-                                            <input type="hidden" name="product-cate" value="0" id="product-cate" />
+                                            <input type="hidden" name="product-cate" id="product-cate" />
                                             <a href="#" className="link-control">All Category</a>
                                             <ul className="list-cate">
-                                                <li className="level-0">All Category</li>
-                                                <li className="level-1">-Electronics</li>
-                                                <li className="level-2">Batteries & Chargens</li>
-                                                <li className="level-2">Headphone & Headsets</li>
-                                                <li className="level-2">Mp3 Player & Acessories</li>
-                                                <li className="level-1">-Smartphone & Table</li>
-                                                <li className="level-2">Batteries & Chargens</li>
-                                                <li className="level-2">Mp3 Player & Headphones</li>
-                                                <li className="level-2">Table & Accessories</li>
-                                                <li className="level-1">-Electronics</li>
-                                                <li className="level-2">Batteries & Chargens</li>
-                                                <li className="level-2">Headphone & Headsets</li>
-                                                <li className="level-2">Mp3 Player & Acessories</li>
-                                                <li className="level-1">-Smartphone & Table</li>
-                                                <li className="level-2">Batteries & Chargens</li>
-                                                <li className="level-2">Mp3 Player & Headphones</li>
-                                                <li className="level-2">Table & Accessories</li>
+
+                                                <li className="level-0"><Link to="/index.html"> All Category </Link></li>
+                                                {
+                                                    categories.map((item) => {
+                                                        return (
+                                                            <div key={item.id}>
+                                                                <li className="level-1" >
+                                                                    <Link to={item.link}>- {item.name} </Link>
+                                                                </li>
+                                                                {
+                                                                    item.children && (
+                                                                        <>
+                                                                        {
+                                                                           item.children.map((row) => {
+                                                                               return (
+                                                                                   <li key={row.id} className="level-2"><Link to={row.link}> {row.name} </Link></li>
+                                                                               );
+                                                                           }) 
+                                                                        }
+                                                                        </>
+                                                                    )
+                                                                }
+                                                            </div>
+                                                            
+                                                        );
+                                                    })
+                                                }
+                                                
                                             </ul>
                                         </div>
                                     </form>
@@ -97,13 +110,13 @@ const Header = () => {
                                     </a>
                                 </div>
                                 <div className="wrap-icon-section minicart">
-                                    <a href="#" className="link-direction">
+                                    <Link to="/cart.html" className="link-direction">
                                         <i className="fa fa-shopping-basket" aria-hidden="true"></i>
                                         <div className="left-info">
                                             <span className="index">4 items</span>
                                             <span className="title">CART</span>
                                         </div>
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="wrap-icon-section show-up-after-1024">
                                     <a href="#" className="mobile-navigation">

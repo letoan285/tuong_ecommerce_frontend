@@ -1,0 +1,20 @@
+.wrap-search.center-section {
+    .wrap-list-cate {
+        &:hover {
+            .list-cate {
+                display: block;
+            }
+        }
+        .link-control :hover {
+           
+                .list-cate {
+                    display: block;
+                }
+            
+        }
+    }
+}
+
+.nav-section.header-sticky {
+    width: 100%;
+}
