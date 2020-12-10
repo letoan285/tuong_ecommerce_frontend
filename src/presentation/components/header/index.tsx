@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { navRoutes as routes } from '../../routes/navbar';
 import './header.scss';
 import { categories } from '../../../data/mock-data';
 const Header = () => {
+    const [carts, setCarts] = useState([]);
+    useEffect(() => {
+        const product = localStorage.getItem('carts') || "[]";
+        const carts = JSON.parse(product);
+        setCarts(carts);
+
+        console.log(carts);
+        
+    }, []);
     return (
         <header id="header" className="header header-style-1">
             <div className="container-fluid">
@@ -113,7 +122,7 @@ const Header = () => {
                                     <Link to="/cart.html" className="link-direction">
                                         <i className="fa fa-shopping-basket" aria-hidden="true"></i>
                                         <div className="left-info">
-                                            <span className="index">4 items</span>
+                                            <span className="index">{carts.length} items</span>
                                             <span className="title">CART</span>
                                         </div>
                                     </Link>

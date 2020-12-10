@@ -5,14 +5,20 @@ import './style.scss';
 import { mockData,IMockData   } from '../../../data/mock-data';
 import CountDown from "./countdown";
 import '../style.scss';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { addToCart } from '../../redux/actions/carts';
 
-interface Props { }
+interface Props {
+    propsData: any;
+    addToCart: (product: any) => void;
+}
 interface State {
     time: number;
     onSaleProducts: IMockData[];
 }
 
-export default class OnSales extends Component<Props, State> {
+class OnSales extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
@@ -22,16 +28,18 @@ export default class OnSales extends Component<Props, State> {
     }
 
     componentDidMount() {
+        // console.log('onsales', this.props.propsData);
+        
         const saleProducts = mockData.filter((item) => item.isSale);
-        setInterval(() => {
-            this.setState(prevState => {
-                return {
-                    ...prevState,
-                    onSaleProducts: saleProducts,
-                    time: prevState.time - 1
-                }
-            })
-        }, 1000)
+        // setInterval(() => {
+        //     this.setState(prevState => {
+        //         return {
+        //             ...prevState,
+        //             onSaleProducts: saleProducts,
+        //             time: prevState.time - 1
+        //         }
+        //     })
+        // }, 1000)
 
     }
 
@@ -39,6 +47,12 @@ export default class OnSales extends Component<Props, State> {
 
     //     return 
     // }
+
+    addToCart = (product: any) => {
+    
+        this.props.addToCart(product);
+        
+    }
     render() {
         const settings = {
             dots: true,
@@ -47,6 +61,9 @@ export default class OnSales extends Component<Props, State> {
             slidesToShow: 3,
             slidesToScroll: 3
         };
+        console.log('render', this.props.propsData);
+        
+        
         return (
             <div className="container">
                 <div className="on_sale">
@@ -60,23 +77,31 @@ export default class OnSales extends Component<Props, State> {
                 <Slider {...settings}>
 
                     {
-                        this.state.onSaleProducts.map((item: IMockData) => {
+                        this.props.propsData.data.map((item: any) => {
                             return (
                                 <div className="product_container" key={item.id}>
                                     <div className="sale">
 
-                                        <span className="product-trend-label">Sale</span>
-                                        <span className="product-discount-label">- {item.sale}</span>
+                                        {item.price < item.list_price && <span className="product-trend-label">Sale</span>}
+
+                                        <span className="product-discount-label"> {item.sale}</span>
                                     </div>
                                     <div className="image">
                                         <Link to={`/products/${item.id}`}>
 
-                                            <img className="pic-1" src={item.src} />
+                                            <img className="pic-1" src={item.image} />
                                         </Link>
+                                        <div>
+                                            <button className="btn btn-primary float-left" onClick={() => this.addToCart(item)}>Add To Cart</button>
+                                            <Link className="btn btn-success float-right" to={`/products/${item.id}`}>
+
+                                            View More
+                                        </Link>
+                                        </div>
                                     </div>
 
                                     <div className="price discount">
-                                        <span>$ {item.price}</span> $ {item.price * (1-item.sale!)}
+                                        <span className="sell_price">$ {item.price}</span> - <span className="list_price">$ {item.list_price}</span> 
                                     </div>
                                 </div>
 
@@ -91,3 +116,19 @@ export default class OnSales extends Component<Props, State> {
         );
     }
 }
+
+
+const mapStateToProps = (state: any) => {
+    return {
+        propsData: state.productsReducer
+    }
+  }
+  
+  const mapDispatchToProps = (dispatch: any) => bindActionCreators(
+    {
+        addToCart
+    },
+    dispatch
+  )
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(OnSales);

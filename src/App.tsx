@@ -7,8 +7,16 @@ import Routes from './presentation/routes';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { initApplication } from './presentation/redux/actions/general/appInitiation';
+import { useEffect } from 'react';
 
-function App() {
+function App({propsData}: any) {
+  useEffect(() => {
+    console.log(propsData);
+
+  }, []);
   return (
     <BrowserRouter>
       <div className="App">
@@ -23,4 +31,18 @@ function App() {
   );
 }
 
-export default App;
+
+const mapStateToProps = (state: any) => {
+  return {
+      propsData: state
+  }
+}
+
+const mapDispatchToProps = (dispatch: any) => bindActionCreators(
+  {
+    initApplication
+  },
+  dispatch
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

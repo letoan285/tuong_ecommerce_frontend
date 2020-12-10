@@ -217,3 +217,35 @@
     padding: 6px 15px;
     background-color: rgb(223, 217, 217);
 }
+
+.product_container {
+    position: relative;
+    padding: 5px;
+    .image {
+        img {
+            border: 1px solid lightgray;
+        }
+    }
+}
+
+.list_price {
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: line-through;
+}
+
+.sell_price {
+    font-weight: bold;
+    color: green;
+    font-size: 14px;
+}
+
+.product-trend-label {
+    position: absolute;
+    top: 6px;
+    right: 5px;
+    background-color: rgb(58, 189, 58);
+    border-radius: 5px;
+    padding: 2px 10px;
+    color: #fff;
+}
