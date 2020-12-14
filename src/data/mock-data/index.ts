@@ -33,3 +33,8 @@ export const categories = [
         ]
     }
 ];
+
+export const carts = [
+    {id: 1, productName: 'Iphone 5', src: 'assets/images/products/tools_equipment_7.jpg', price: 1200, quantity: 1},
+    {id: 2, productName: 'Iphone 5', src: 'assets/images/products/tools_equipment_6.jpg', price: 1500, quantity: 2}
+];

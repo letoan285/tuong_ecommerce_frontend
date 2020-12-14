@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import Loading from '../../components/loading';
 import LatestProducts from '../../modules/latest_products';
@@ -13,6 +14,7 @@ interface IHomepage {
 }
 
 const HomePage = ({getProducts: handleGetProducts, propsData}: IHomepage) => {
+    const history: any = useHistory();
     useEffect(() => {
         handleGetProducts();
         

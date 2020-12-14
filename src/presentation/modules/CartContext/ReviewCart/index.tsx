@@ -1,36 +1,37 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 
 import { mockData, IMockData } from '../../../../data/mock-data';
 import MostViewedProduct from '../MostViewedProduct';
+import { removeCartitem } from '../../../redux/actions/carts';
 // import "./style.css";
 
-interface Props {}
+interface Props {
+	removeCartitem: (cart: any) => void;
+	cartData: any;
+}
 interface State {
 	onSaleProducts: IMockData[];
 	cartValue: number;
+	carts: any[];
 }
 
-export default class ReviewCart extends Component<Props, State> {
+class ReviewCart extends Component<Props, State> {
 	constructor(props: Props) {
 		super(props);
 		this.state = {
 			onSaleProducts: [],
-			cartValue: 1
+			cartValue: 1,
+			carts: []
 		};
 	}
 
-	componentDidMount() {
-		const saleProducts = mockData.filter((item) => item.isSale);
-		setInterval(() => {
-			this.setState((prevState) => {
-				return {
-					...prevState,
-					onSaleProducts: saleProducts,
-				};
-			});
-		}, 1000);
+	componentDidUpdate(){
+		console.log('update Cart');
+		
 	}
 
 	handleIncreaseQty = () => {
@@ -50,8 +51,24 @@ export default class ReviewCart extends Component<Props, State> {
 		})
 	}
 
+	handleRemoveCartItem = (cart: any) => {
+		console.log(this.state.carts);
+		console.log(cart);
+		
+		this.props.removeCartitem(cart);
+		// console.log(cart);
+		
+	}
+
 	render() {
-		const {cartValue} = this.state;
+		const {cartValue, carts} = this.state;
+		if(!this.props.cartData.data){
+			return (<h2>Loading...</h2>);
+			
+			// console.log('cartData', this.props.cartData);
+		}
+		
+	
 		return (
 			<section className="shopping-cart">
 				<main id="main" className="main-site">
@@ -72,9 +89,9 @@ export default class ReviewCart extends Component<Props, State> {
 							<div className="wrap-iten-in-cart">
 								<h3 className="box-title">Products Name</h3>
 
-								{this.state.onSaleProducts.map((item: IMockData) => {
+								{ this.props.cartData.data.carts.map((item: any) => {
 									return (
-										<ul className="products-cart">
+										<ul className="products-cart" key={item.id}>
 											<li className="pr-cart-item">
 												<div className="product-image">
 													<figure>
@@ -83,7 +100,7 @@ export default class ReviewCart extends Component<Props, State> {
 												</div>
 												<div className="product-name">
 													<a className="link-to-product" href="#">
-													{item.name}
+													{item.productName}
 													</a>
 												</div>
 												<div className="price-field produtc-price">
@@ -94,7 +111,7 @@ export default class ReviewCart extends Component<Props, State> {
 														<input
 															type="text"
 															name="product-quatity"
-															value={cartValue}
+															value={item.quantity}
 															data-max={120}
 															pattern="[0-9]*"
 														/>
@@ -106,7 +123,7 @@ export default class ReviewCart extends Component<Props, State> {
 													<p className="price">$256.00</p>
 												</div>
 												<div className="delete">
-													<a href="#" className="btn btn-delete" title="">
+													<a href="#" className="btn btn-delete" onClick={() => this.handleRemoveCartItem(item)}>
 														<span>Delete from your cart</span>
 														<i className="fa fa-times-circle" aria-hidden="true" />
 													</a>
@@ -168,3 +185,19 @@ export default class ReviewCart extends Component<Props, State> {
 		);
 	}
 }
+
+const mapStateToProps = (state: any) => {
+    return {
+        propsData: state.productsReducer,
+        cartData: state.cartsReducer
+    }
+  }
+  
+  const mapDispatchToProps = (dispatch: any) => bindActionCreators(
+    {
+        removeCartitem
+    },
+    dispatch
+  )
+  
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewCart);

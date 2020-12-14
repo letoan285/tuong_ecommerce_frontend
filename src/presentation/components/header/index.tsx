@@ -3,7 +3,9 @@ import { Link, NavLink } from 'react-router-dom';
 import { navRoutes as routes } from '../../routes/navbar';
 import './header.scss';
 import { categories } from '../../../data/mock-data';
-const Header = () => {
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+const Header = ({propsData}: any) => {
     const [carts, setCarts] = useState([]);
     useEffect(() => {
         const product = localStorage.getItem('carts') || "[]";
@@ -11,8 +13,10 @@ const Header = () => {
         setCarts(carts);
 
         console.log(carts);
+        console.log('propsData', propsData);
         
-    }, []);
+        
+    }, [propsData.data]);
     return (
         <header id="header" className="header header-style-1">
             <div className="container-fluid">
@@ -179,4 +183,18 @@ const Header = () => {
     );
 }
 
-export default Header;
+
+const mapStateToProps = (state: any) => {
+    return {
+        propsData: state.cartsReducer
+    }
+  }
+  
+  const mapDispatchToProps = (dispatch: any) => bindActionCreators(
+    {
+        
+    },
+    dispatch
+  )
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Header);

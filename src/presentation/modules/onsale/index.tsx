@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component, useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
 import Slider from "react-slick";
 import './style.scss';
 import { mockData,IMockData   } from '../../../data/mock-data';
@@ -12,48 +12,36 @@ import { addToCart } from '../../redux/actions/carts';
 interface Props {
     propsData: any;
     addToCart: (product: any) => void;
+    // history: any;
 }
 interface State {
     time: number;
     onSaleProducts: IMockData[];
 }
 
-class OnSales extends Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-        this.state = {
-            time: 100000,
-            onSaleProducts: []
-        }
-    }
-
-    componentDidMount() {
-        // console.log('onsales', this.props.propsData);
-        
-        const saleProducts = mockData.filter((item) => item.isSale);
-        // setInterval(() => {
-        //     this.setState(prevState => {
-        //         return {
-        //             ...prevState,
-        //             onSaleProducts: saleProducts,
-        //             time: prevState.time - 1
-        //         }
-        //     })
-        // }, 1000)
-
-    }
-
-    // getCountDown = () => {
-
-    //     return 
-    // }
-
-    addToCart = (product: any) => {
+const OnSales  = ({propsData,cartData, addToCart: handleAddToCart}: any) => {
     
-        this.props.addToCart(product);
+    const history: any = useHistory();
+
+ 
+    const addToCart = (product: any) => {
+        const cart = {
+            id: product.id,
+            productName: product.name,
+            src: product.image,
+            price: product.price,
+            quantity: 1
+        }
+    
+        handleAddToCart(cart);
+        setTimeout(() => {
+            history.push('/cart.html');
+
+        }, 100);
+        
         
     }
-    render() {
+   
         const settings = {
             dots: true,
             infinite: true,
@@ -61,7 +49,7 @@ class OnSales extends Component<Props, State> {
             slidesToShow: 3,
             slidesToScroll: 3
         };
-        console.log('render', this.props.propsData);
+        // console.log('render', this.props.propsData);
         
         
         return (
@@ -77,7 +65,7 @@ class OnSales extends Component<Props, State> {
                 <Slider {...settings}>
 
                     {
-                        this.props.propsData.data.map((item: any) => {
+                        propsData.data.map((item: any) => {
                             return (
                                 <div className="product_container" key={item.id}>
                                     <div className="sale">
@@ -92,7 +80,7 @@ class OnSales extends Component<Props, State> {
                                             <img className="pic-1" src={item.image} />
                                         </Link>
                                         <div>
-                                            <button className="btn btn-primary float-left" onClick={() => this.addToCart(item)}>Add To Cart</button>
+                                            <button className="btn btn-primary float-left" onClick={() => addToCart(item)}>Add To Cart</button>
                                             <Link className="btn btn-success float-right" to={`/products/${item.id}`}>
 
                                             View More
@@ -114,13 +102,14 @@ class OnSales extends Component<Props, State> {
                 </Slider>
             </div>
         );
-    }
+    
 }
 
 
 const mapStateToProps = (state: any) => {
     return {
-        propsData: state.productsReducer
+        propsData: state.productsReducer,
+        cartData: state.cartsReducer
     }
   }
   

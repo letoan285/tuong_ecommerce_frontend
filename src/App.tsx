@@ -10,11 +10,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { initApplication } from './presentation/redux/actions/general/appInitiation';
+import { getCarts } from './presentation/redux/actions/carts';
 import { useEffect } from 'react';
 
-function App({propsData}: any) {
+function App({propsData, getCarts}: any) {
   useEffect(() => {
     console.log(propsData);
+    getCarts();
 
   }, []);
   return (
@@ -40,7 +42,8 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators(
   {
-    initApplication
+    initApplication,
+    getCarts
   },
   dispatch
 )
