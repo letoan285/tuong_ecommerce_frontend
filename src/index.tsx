@@ -9,9 +9,13 @@ import {configureStore} from './presentation/redux/store';
 
 const store = configureStore();
 
+const loading = <h2>Loading...</h2>
+
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <React.Suspense fallback={loading}>
+      <App />
+    </React.Suspense>
   </Provider>,
   document.getElementById('root')
 );

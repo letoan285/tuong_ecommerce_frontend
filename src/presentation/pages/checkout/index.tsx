@@ -10,8 +10,8 @@ const CheckoutPage = () => {
         country: '',
         city: '',
         zipCode: '',
-        createAccount: '',
-        differentAdd: '',
+        createAccount: false,
+        differentAdd: false,
         paymentMethod: '',
         couponCode: ''
     };
@@ -19,60 +19,68 @@ const CheckoutPage = () => {
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
+        console.log(state);
+        
     }
-    const submitCouponCode = () => {
-        alert('apply coupon')
+    const handleChange = (e: any) => {
+        // console.log(e);
+        console.log(e.target.type);
+        setstate({
+            ...state,
+                [e.target.name]: e.target.type == 'checkbox' ? e.target.checked : e.target.value
+            })
     }
+
     return (
         <form onSubmit={handleSubmit}>
         <div className="container">
             <div className=" main-content-area">
                 <div className="wrap-address-billing">
                     <h3 className="box-title">Billing Address</h3>
-                    <form action="#" method="get" name="frm-billing">
+                    <div className="frm-billing">
                         <p className="row-in-form">
                             <label htmlFor="fname">first name<span>*</span></label>
-                            <input id="fname" type="text" name="fname" value="" placeholder="Your name" />
+                            <input id="fname" type="text"  name="fname" value={state.fname} placeholder="Your name" onChange={handleChange} />
                         </p>
                         <p className="row-in-form">
                             <label htmlFor="lname">last name<span>*</span></label>
-                            <input id="lname" type="text" name="lname" value="" placeholder="Your last name" />
+                            <input id="lname" type="text" name="lname" value={state.lname} placeholder="Your last name" onChange={handleChange}/>
                         </p>
                         <p className="row-in-form">
                             <label htmlFor="email">Email Addreess:</label>
-                            <input id="email" type="email" name="email" value="" placeholder="Type your email" />
+                            <input id="email" type="email" name="email" value={state.email} placeholder="Type your email" onChange={handleChange}/>
                         </p>
                         <p className="row-in-form">
                             <label htmlFor="phone">Phone number<span>*</span></label>
-                            <input id="phone" type="number" name="phone" value="" placeholder="10 digits format" />
+                            <input id="phone" type="number" name="phone" value={state.phone} placeholder="10 digits format" onChange={handleChange}/>
                         </p>
                         <p className="row-in-form">
                             <label htmlFor="add">Address:</label>
-                            <input id="add" type="text" name="add" value="" placeholder="Street at apartment number" />
+                            <input id="add" type="text" name="add" value={state.add} placeholder="Street at apartment number" onChange={handleChange}/>
                         </p>
                         <p className="row-in-form">
                             <label htmlFor="country">Country<span>*</span></label>
-                            <input id="country" type="text" name="country" value="" placeholder="United States" />
+                            <input id="country" type="text" name="country" value={state.country} placeholder="United States" onChange={handleChange}/>
                         </p>
                         <p className="row-in-form">
                             <label htmlFor="zip-code">Postcode / ZIP:</label>
-                            <input id="zip-code" type="number" name="zip-code" value="" placeholder="Your postal code" />
+                            <input id="zip-code" type="number" name="zipCode" value={state.zipCode} placeholder="Your postal code" onChange={handleChange}/>
                         </p>
                         <p className="row-in-form">
                             <label htmlFor="city">Town / City<span>*</span></label>
-                            <input id="city" type="text" name="city" value="" placeholder="City name" />
+                            <input id="city" type="text" name="city" value={state.city} placeholder="City name" onChange={handleChange}/>
                         </p>
                         <p className="row-in-form fill-wife">
                             <label className="checkbox-field">
-                                <input name="create-account" id="create-account" value="forever" type="checkbox" />
+                                <input name="createAccount" id="create-account" type="checkbox" onChange={handleChange}/>
                                 <span>Create an account?</span>
                             </label>
                             <label className="checkbox-field">
-                                <input name="different-add" id="different-add" value="forever" type="checkbox" />
+                                <input name="differentAdd" id="different-add" type="checkbox" onChange={(e) => handleChange(e)}/>
                                 <span>Ship to a different address?</span>
                             </label>
                         </p>
-                    </form>
+                    </div>
                 </div>
                 <div className="summary summary-checkout">
                     <div className="summary-item payment-method">
@@ -107,9 +115,8 @@ const CheckoutPage = () => {
                         <h4 className="title-box">Discount Codes</h4>
                         <p className="row-in-form">
                             <label htmlFor="coupon-code">Enter Your Coupon code:</label>
-                            <input id="coupon-code" type="text" name="coupon-code" value="" placeholder="" />
+                            <input id="coupon-code" type="text" name="couponCode" value={state.couponCode} placeholder="Your Coupon"  onChange={handleChange}/>
                         </p>
-                        <button type="button" onClick={submitCouponCode} className="btn btn-small">Apply</button>
                     </div>
                 </div>
 

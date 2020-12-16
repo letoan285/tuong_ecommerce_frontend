@@ -34,10 +34,10 @@ const OnSales  = ({propsData,cartData, addToCart: handleAddToCart}: any) => {
         }
     
         handleAddToCart(cart);
-        setTimeout(() => {
-            history.push('/cart.html');
+        // setTimeout(() => {
+        //     history.push('/cart.html');
 
-        }, 100);
+        // }, 1000);
         
         
     }

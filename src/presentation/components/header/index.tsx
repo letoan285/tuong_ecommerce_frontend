@@ -32,8 +32,8 @@ const Header = ({propsData}: any) => {
                             </div>
                             <div className="topbar-menu right-menu">
                                 <ul>
-                                    <li className="menu-item" ><a title="Register or Login" href="login.html">Login</a></li>
-                                    <li className="menu-item" ><a title="Register or Login" href="register.html">Register</a></li>
+                                    <li className="menu-item" ><Link title="Register or Login" to="/login.html">Login</Link></li>
+                                    <li className="menu-item" ><Link title="Register or Login" to="/register.html">Register</Link></li>
                                     <li className="menu-item lang-menu menu-item-has-children parent">
                                         <NavLink title="English" to="#"><span className="img label-before"><img src="assets/images/lang-en.png" alt="lang-en" /></span>English<i className="fa fa-angle-down" aria-hidden="true"></i></NavLink>
                                         <ul className="submenu lang" >
