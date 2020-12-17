@@ -79,6 +79,11 @@ class ReviewCart extends Component<Props, State> {
 		})
 
 	}
+	handleCheckout = () => {
+		// const 
+		// console.log(this.state.carts)
+		console.log(this.props);
+	}
 
 	render() {
 		const { cartValue, carts } = this.state;
@@ -191,9 +196,9 @@ class ReviewCart extends Component<Props, State> {
 												/>
 												<span>I have promo code</span>
 											</label>
-											<a className="btn btn-checkout" href="checkout.html">
+											<Link className="btn btn-checkout" to="/checkout.html">
 												Check out
-											</a>
+											</Link>
 											<a className="link-to-shop" href="shop.html">
 												Continue Shopping
 												<i className="fa fa-arrow-circle-right" aria-hidden="true" />

@@ -4,7 +4,7 @@ import { exhaustMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import Axios from "axios";
 // import ProductUseCase from '../../../../domain/usecases/products';
-import {UserLoginUseCase} from '../../../../domain/usecases/users'
+import UserUseCase from '../../../../domain/usecases/users'
 
 
 export const userLoginEpic = (action$: any, state$: any) => action$.pipe(
@@ -13,18 +13,17 @@ export const userLoginEpic = (action$: any, state$: any) => action$.pipe(
         return new Observable((obs) => {
             const { email, password } = action.payload;
             
-            const usercase  = new UserLoginUseCase(email, password);
-            Axios.get('http://localhost:8000/api/products').then((response: any) => {
-                const products = response.data.data;
+            const usercase  = new UserUseCase.UserLoginUseCase(email, password);
+            usercase.execute().then((response) => {
                 if(response){
-                    obs.next(loginSuccess(products));
+                    obs.next(loginSuccess(response));
                     obs.complete();
                 } else {
                     obs.next(loginFail('Login Failed !'));
                     obs.complete();
                 }
-            
-            });
+            })
+
 
         });
     })

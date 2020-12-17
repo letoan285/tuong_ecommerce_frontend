@@ -12,5 +12,6 @@ export const TokenType: ITokenType  = {
     Customer: 'Customer',
     Admin: 'Admin',
     DeviceToken: 'DeviceToken',
-    User: 'User'
+    User: 'User',
+    access_token: 'access_token'
 }

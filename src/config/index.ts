@@ -12,8 +12,8 @@ export const initConfig = (): Promise<IRemoteConfig> => {
      * Some data from remote config API place here
      */
     const config: IRemoteConfig = {
-      endpoint: 'http://165.22.103.200:8083',
-      domain: 'http://165.22.103.200:8083',
+      endpoint: 'http://localhost:8000',
+      domain: 'http://localhost:8000',
       accessToken: '7645dbab3206527a2d8120e1736fi4u44c',
       googleApiKey: 'AIzaSyDe2Kk6i-VPLHmGq-0_RH7JYk1QlaxSYMsI',
       adminPassword: '',

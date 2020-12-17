@@ -17,7 +17,7 @@ export interface IAction<T> {
     [key: string]: any;
 }
 export interface IState<T> {
-    isFeching: boolean;
+    isFetching: boolean;
     status: string;
     data?: T;
     params?: any;

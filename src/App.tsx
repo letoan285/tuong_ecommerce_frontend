@@ -13,8 +13,9 @@ import { initApplication } from './presentation/redux/actions/general/appInitiat
 import { getCarts } from './presentation/redux/actions/carts';
 import { useEffect } from 'react';
 
-function App({propsData, getCarts}: any) {
+function App({propsData, getCarts, initApplication: handleInitApplication}: any) {
   useEffect(() => {
+    handleInitApplication();
     console.log(propsData);
     getCarts();
 

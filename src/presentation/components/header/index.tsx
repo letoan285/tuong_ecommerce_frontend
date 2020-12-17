@@ -5,16 +5,19 @@ import './header.scss';
 import { categories } from '../../../data/mock-data';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import {TokenType} from '../../../data/constants';
+
 const Header = ({propsData}: any) => {
     const [carts, setCarts] = useState([]);
+    const [isLogin, setIsLogin] = useState(false);
     useEffect(() => {
         const product = localStorage.getItem('carts') || "[]";
+        const token = localStorage.getItem(TokenType.access_token);
         const carts = JSON.parse(product);
         setCarts(carts);
-
-        console.log(carts);
-        console.log('propsData', propsData);
-        
+        if(token){
+            setIsLogin(true);
+        }        
         
     }, [propsData.data]);
     return (
@@ -32,7 +35,11 @@ const Header = ({propsData}: any) => {
                             </div>
                             <div className="topbar-menu right-menu">
                                 <ul>
-                                    <li className="menu-item" ><Link title="Register or Login" to="/login.html">Login</Link></li>
+                                    {
+                                        !isLogin && (<li className="menu-item" ><Link title="Register or Login" to="/login.html">Login</Link></li>)
+                                    }
+                                    
+
                                     <li className="menu-item" ><Link title="Register or Login" to="/register.html">Register</Link></li>
                                     <li className="menu-item lang-menu menu-item-has-children parent">
                                         <NavLink title="English" to="#"><span className="img label-before"><img src="assets/images/lang-en.png" alt="lang-en" /></span>English<i className="fa fa-angle-down" aria-hidden="true"></i></NavLink>

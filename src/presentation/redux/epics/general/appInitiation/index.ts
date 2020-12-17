@@ -10,8 +10,17 @@ export const initAppEpic = (action$: any, state$: any) =>
         ofType(INIT_APP),
         exhaustMap(action => {
             return new Observable(obs => {
-                obs.next(initApplicationSuccess());
-                obs.complete();
+                const usecase = new InitAppUseCase();
+                usecase
+                  .execute()
+                  .then(() => {
+                    obs.next(initApplicationSuccess());
+                    obs.complete();
+                  })
+                  .catch((error) => {
+                    obs.next(initApplicationFailed(error.toString()));
+                    obs.complete();
+                  });
             });
         })
     );

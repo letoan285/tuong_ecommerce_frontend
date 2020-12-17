@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { TokenType } from '../../../data/constants'
 
 const CheckoutPage = () => {
+    const history = useHistory();
     const initialState = {
         fname: '',
         lname: '',
@@ -19,7 +22,12 @@ const CheckoutPage = () => {
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        console.log(state);
+        const cartString = localStorage.getItem('carts') || '';
+        const carts = JSON.parse(cartString);
+        
+        // console.log(state);
+        const data = {...state, carts}
+        console.log(data);
         
     }
     const handleChange = (e: any) => {
@@ -28,8 +36,16 @@ const CheckoutPage = () => {
         setstate({
             ...state,
                 [e.target.name]: e.target.type == 'checkbox' ? e.target.checked : e.target.value
-            })
+        })
     }
+    useEffect(() => {
+        const access_token = localStorage.getItem(TokenType.access_token);
+        if(!access_token){
+            localStorage.setItem('history_page', 'checkout.html');       
+            history.push('/login.html');
+        }
+
+    }, []);
 
     return (
         <form onSubmit={handleSubmit}>

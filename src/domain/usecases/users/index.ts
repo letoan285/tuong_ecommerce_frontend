@@ -1,1 +1,5 @@
-export * from './UserLoginUseCase';
+import UserLoginUseCase from './UserLoginUseCase';
+
+export default {
+    UserLoginUseCase
+}

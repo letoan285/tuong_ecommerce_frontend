@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { IUserLogin, login } from '../../../redux/actions/users';
 
@@ -8,6 +9,7 @@ interface ILogin {
 }
 
 const Login: React.FC<ILogin> = ({login: handleLogin}) => {
+    const history = useHistory();
 
     const [passwordText, setPasswordText] = useState('password');
     const [user, setUser] = useState({
@@ -24,6 +26,13 @@ const Login: React.FC<ILogin> = ({login: handleLogin}) => {
     const handleSubmit = (e: any) => {
         e.preventDefault();
         handleLogin(user);
+        const historyPage = localStorage.getItem('history_page');
+        // alert(historyPage);
+        if(historyPage){
+            history.push(`/${historyPage}`);
+        } else {
+            history.push('/');
+        }
         // console.log(user);
         
     }
