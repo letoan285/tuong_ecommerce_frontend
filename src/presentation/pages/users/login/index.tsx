@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
@@ -6,9 +6,10 @@ import { IUserLogin, login } from '../../../redux/actions/users';
 
 interface ILogin {
     login: (user: IUserLogin) => void;
+    propsData: any;
 }
 
-const Login: React.FC<ILogin> = ({login: handleLogin}) => {
+const Login: React.FC<ILogin> = ({login: handleLogin, propsData}) => {
     const history = useHistory();
 
     const [passwordText, setPasswordText] = useState('password');
@@ -26,16 +27,22 @@ const Login: React.FC<ILogin> = ({login: handleLogin}) => {
     const handleSubmit = (e: any) => {
         e.preventDefault();
         handleLogin(user);
-        const historyPage = localStorage.getItem('history_page');
-        // alert(historyPage);
-        if(historyPage){
-            history.push(`/${historyPage}`);
-        } else {
-            history.push('/');
-        }
-        // console.log(user);
+       
         
     }
+    useEffect(() => {
+        const historyPage = localStorage.getItem('history_page');
+        if(propsData.success){
+            // alert(historyPage);
+            if(historyPage){
+                history.push(`/${historyPage}`);
+            } else {
+                history.push('/');
+            }
+            // console.log(user);
+        }
+       
+    }, [propsData.success]);
     return (
         <div className="container login-page" style={{marginTop: '50px'}}>
 
@@ -78,7 +85,7 @@ const Login: React.FC<ILogin> = ({login: handleLogin}) => {
 
 const mapStateToProps = (state: any) => {
     return {
-        propsData: state.productsReducer
+        propsData: state.usersReducer.loginReducer
     }
   }
   

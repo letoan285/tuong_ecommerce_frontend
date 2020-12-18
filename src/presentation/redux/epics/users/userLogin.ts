@@ -15,7 +15,7 @@ export const userLoginEpic = (action$: any, state$: any) => action$.pipe(
             
             const usercase  = new UserUseCase.UserLoginUseCase(email, password);
             usercase.execute().then((response) => {
-                if(response){
+                if(response.success === 1){
                     obs.next(loginSuccess(response));
                     obs.complete();
                 } else {

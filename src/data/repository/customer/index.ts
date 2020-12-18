@@ -7,6 +7,12 @@ export default class CustomerRepository {
         return CustomerCloud.Login(email, password);
     }
 
+    registerUser = (name: string, email: string, password: string) => {
+        
+        return CustomerCloud.Register(name, email, password);
+    }
+
+
  
 
 }

@@ -1,0 +1,11 @@
+.error-messages {
+    &__text {
+        margin-top: 10px;
+        color: red;
+        span {
+
+            color: red;
+            font-size: 15px;
+        }
+    }
+}

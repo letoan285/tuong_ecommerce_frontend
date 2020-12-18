@@ -14,11 +14,21 @@ const Login = (email: string, password: string): Promise<any> => {
     return apiGateway.doPostRequest(userResource, {email, password})
       .then((response: ResponseModel<string>) => {
         const { data } = response;
-        debugger
+        return data;
+      });
+  };
+
+  const Register = (name: string, email: string, password: string): Promise<any> => {
+    const apiGateway = ApiGateway.createAPIConnection(getConfig());
+    const userResource = ExpressResource.User.Register();
+    return apiGateway.doPostRequest(userResource, {name, email, password})
+      .then((response: ResponseModel<string>) => {
+        const { data } = response;
         return data;
       });
   };
   
 export default {
-    Login
+    Login,
+    Register
 }

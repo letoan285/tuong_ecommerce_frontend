@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import usersReducer from './users';
+import regiserUserReducer from './users/registerReducer'
 import {productsReducer} from './products';
 import { cartsReducer } from './carts'
 
